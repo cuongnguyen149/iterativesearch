@@ -11,7 +11,11 @@
     "cfenv" : "*"
   },
   "dependencies": {
-    "body-parser": "^1.15.1"
+    "body-parser": "^1.15.1",
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.3",
+    "restler": "^3.3.0",
+    "cfenv" : "*"
   },
    "scripts": {
     "start": "node index.js"
