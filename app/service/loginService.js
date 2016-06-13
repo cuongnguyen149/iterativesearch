@@ -3,7 +3,8 @@
  angular.module('iterativeSearch')
  	.factory("LoginSvc", ["$http", "$q", function ($http, $q) {
         var service = {
-            getUser: getUser
+            getUser: getUser,
+            repairData: repairData
         }
 
         function getUser() {
@@ -21,6 +22,18 @@
                 });
 
             return deferred.promise;
+        }
+
+        function repairData() {
+            $http({
+                method: 'get',
+                url: 'repairdata',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).success(function () {
+                console.log('repairdata success');
+            });
         }
 
         return service;

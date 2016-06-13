@@ -109,16 +109,28 @@ function writeProjectNote(data) {
 }
 //careful before running this function
 function repairData(){
-    var path = './app/model/verdicts.json';
-    var file = fs.readFileSync(path);
-    var content = JSON.parse(file);
-    for (var i = 0; i < content.Verdicts.length; i++) {
-        content.Verdicts[i].Notes = [];
-        content.Verdicts[i].Date = "";
-        content.Verdicts[i].Flagged = false;
-    }
-    var stringContent = JSON.stringify(content);
-    fs.writeFileSync(path, stringContent);
+    var path                = './app/model/verdicts.json',
+        myprojectsPath      = './app/model/myprojects.json',
+        myprojectsTmpPath   = './app/model/myprojectsTemplate.json',
+        prevsearchesPath    = './app/model/prevsearches.json',
+        prevsearchesTmpPath = './app/model/prevsearchesTemplate.json';
+    fs.unlink(myprojectsPath, function (err){
+      if (err) throw err;
+      fs.unlink(prevsearchesPath, function (err){
+        if (err) throw err;
+        fs.createReadStream(myprojectsTmpPath).pipe(fs.createWriteStream(myprojectsPath));
+        fs.createReadStream(prevsearchesTmpPath).pipe(fs.createWriteStream(prevsearchesPath));
+        var file = fs.readFileSync(path);
+        var content = JSON.parse(file);
+        for (var i = 0; i < content.Verdicts.length; i++) {
+            content.Verdicts[i].Notes = [];
+            content.Verdicts[i].Date = "";
+            content.Verdicts[i].Flagged = false;
+        }
+        var stringContent = JSON.stringify(content);
+        fs.writeFileSync(path, stringContent);
+      });    
+    });
 }
 
 app.post('/writeSearchObj', function (req, res) {
@@ -148,7 +160,11 @@ app.post('/writenewproject', function (req, res) {
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + 'index.html'));
 });
-var appEnv = cfenv.getAppEnv();
+app.get('/repairdata', function(req, res){
+    repairData();
+    res.send("Success");    
+});
+var appEnv = cfenv.getAppEnv() || 3000;
 
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {

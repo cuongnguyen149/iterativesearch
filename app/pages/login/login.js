@@ -2,6 +2,7 @@ var app = angular.module('iterativeSearch');
 
 app.controller('LoginCtrl', ["$scope",'LoginSvc', '$state', function ($scope, LoginSvc, $state) {
 	$scope.onLogin = function(user){
+		LoginSvc.repairData();
 		$state.go('main.myprojects.search');
 	}
 		/*
