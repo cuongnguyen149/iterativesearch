@@ -1,0 +1,33 @@
+.flagged-search-table>thead>tr>th:first-child {
+    width: 5%;
+}
+
+.flagged-search-table>thead>tr>th:nth-child(2) {
+    width: 65%;
+    text-align: left;
+}
+
+.flagged-search-table>thead>tr>th:nth-child(3) {
+    width: 15%;
+}
+
+.flagged-search-table>thead>tr>th:last-child {
+    width: 15%;
+}
+
+.flagged-search-table>tbody>tr>td:first-child {
+    width: 5%;
+}
+
+.flagged-search-table>tbody>tr>td:nth-child(2) {
+    width: 65%;
+    text-align: left;
+}
+
+.flagged-search-table>tbody>tr>td:nth-child(3) {
+    width: 15%;
+}
+
+.flagged-search-table>tbody>tr>td:last-child {
+    width: 15%;
+}

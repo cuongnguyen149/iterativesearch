@@ -1,0 +1,92 @@
+<div class="container search-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group iterative-search-form">
+                <input type="text" ng-model="searchpage.textBoxSearchTerm" class="form-control" placeholder="Search...">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" aria-label="Help" ng-click="searchClick()"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right">
+        <input type="checkbox" ng-model="searchpage.checkStatus"> <span>Include Archived</span>
+    </div>
+    <div class="search-table">
+        <table class="table iterativesearch-search-table">
+            <thead>
+                <tr>
+                    <th ng-class="{selected: sortNotes == 'Note'}" ng-click="sortNotes = 'Note'; sortNotesReverse = !sortNotesReverse">
+                        Note
+                        <span ng-class="sortNotesReverse ? 'glyphicon glyphicon-triangle-top' : 'glyphicon glyphicon-triangle-bottom'" class="pull-right"></span>
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Search Term
+                    </th>
+                    <th>
+                        Last Opened
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="note in Notes | orderBy:sortNotes:sortNotesReverse" class="{{selected}}" data-toggle="modal" data-target="#show-note" ng-click="noteOnClick(note)">
+                    <td>{{note.NoteName}}</td>
+                    <td>{{note.ProjectName}}
+                    <td>{{note.tempDisplayStr}}</td>
+                    <td>{{note.LastOpened}}</td>                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-lg" id="show-note" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row iterative-note-header">
+                    <div class="col-md-6">
+                        <span>{{Note.Project.Project}}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span>{{Note.LastOpened}}</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="iterative-note-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <span>{{Note.Author}}</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span>{{Note.LastOpened}}</span>
+                        </div>
+                        <div class="col-md-12">
+                            <span>{{Note.Contents}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Note:
+                        </div>
+                        <div class="col-md-10">
+                            <textarea rows="4" class="form-control" style="resize: none"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="iterative-note-footer">
+                    <button type="submit" class="btn btn-default iterative-button-inactive">DELETE</button>
+                    <button type="submit" class="btn btn-default iterative-button-inactive pull-right" data-dismiss="modal">OK</button>
+                    <button type="submit" class="btn btn-default iterative-button pull-right" data-dismiss="modal">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

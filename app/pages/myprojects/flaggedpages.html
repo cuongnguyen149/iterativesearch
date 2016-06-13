@@ -1,0 +1,42 @@
+<div data-ng-init="getFlaggedVerdicts()">
+    <table class="table iterativesearch-searchresult-table flagged-search-table">
+        <thead>
+            <tr>
+                <th>
+                    <img src="./app/lib/img/pencil_gray.png" class="head-icon" />
+                </th> 
+
+                <th ng-class="{selected: sortSearch == 'Result'}" ng-click="sortSearch = 'Result'; sortSearchReverse = !sortSearchReverse">
+                    Search Results
+                    <span ng-class="sortSearchReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                </th>
+                
+                <th ng-class="{selected: sortSearch == 'Search'}" ng-click="sortSearch = 'Search'; sortSearchReverse = !sortSearchReverse">
+                    Search
+                    <span ng-class="sortSearchReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                </th>
+
+                <th ng-class="{selected: sortSearch == 'Viewed'}" ng-click="sortSearch = 'Viewed'; sortSearchReverse = !sortSearchReverse">
+                    Viewed
+                    <span ng-class="sortSearchReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="verdict in Verdicts" ng-click="setVerdictClick(verdict)" class="{{selected}}">
+                <td><span class="badge notes" ng-show="verdict.Notes.length > 0">{{verdict.Notes.length}}</span></td>
+                <td>
+                    <div>
+                        <div>
+                            <span ng-if="verdict.Amount > 0" class="iterative-verdict-amount">Verdict {{verdict.Amount | currency}}</span>
+                            <span ng-if="verdict.Amount == 0" class="iterative-verdict-amount">Verdict for the Defense</span>
+                        </div>
+                        <div>{{verdict.Abstract}}</div>
+                    </div>
+                </td>
+                <td>{{verdict.SearchTermsStr}}</td>  
+                <td>{{verdict.LastOpened}}</td>                    
+            </tr>
+        </tbody>
+    </table>
+</div>

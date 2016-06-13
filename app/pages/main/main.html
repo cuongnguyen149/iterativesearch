@@ -1,0 +1,27 @@
+<nav class="navbar iterativeSearch-nav" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="#">
+                <img src="../../app/lib/img/logo.png">
+            </a>
+        </div>
+        <ul class="nav navbar-nav iterativeSearch-nav-items">
+            <li><a ui-sref="main.myprojects.search" ng-class="{active: $state.includes('main.myprojects')}">My Projects</a></li>
+            <li><a ui-sref="main.archivedprojects.previousSearches" ng-class="{active: $state.includes('main.archivedprojects')}">Archived Projects</a></li>
+            <li><a ui-sref="main.searchprojects" ng-class="{active: $state.includes('main.searchprojects')}">Search Projects</a></li>
+            <li><a ui-sref="main.searchnotes" ng-class="{active: $state.includes('main.searchnotes')}">Search Notes</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right iterativeSearch-nav-profile">
+            <li>
+                <a><img src="../../app/lib/img/profile_img.png"> Jane Smith</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="main-content">
+    <div class="container main-container" ui-view></div>
+    
+    <footer class="footer">
+    </footer>
+
+</div>

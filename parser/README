@@ -1,0 +1,4 @@
+Simple python script to convert csv into JSON structure used by Iterative Search.
+
+"python states_parser.py" --> creates "states.json"
+"python verdicts_parser.py" --> creates "verdicts.json"

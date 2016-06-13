@@ -1,0 +1,26 @@
+.archiveprojects{
+	font-size: 12px;
+}
+.iterative-search-form {
+    padding-bottom: 10px;
+}
+.iterative-search-form>input {
+    border-radius: 0px;
+    border-right: 0px;
+    box-shadow: none;
+}
+.iterative-search-form>div>button {
+    border-radius: 0px;
+    border-left: 0px;
+    color: #47A323;
+}
+.iterative-search-form>div>button:hover {
+    background: #FFF;
+    border-color: #DADADA;
+    color: #47A323;
+}
+.iterative-search-form>div>button:focus {
+    background: #FFF;
+    border-color: #DADADA;
+    color: #47A323;
+}

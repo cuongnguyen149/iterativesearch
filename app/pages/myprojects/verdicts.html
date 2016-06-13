@@ -1,0 +1,151 @@
+<script>
+    function popUp() {
+        $('#create-notes').modal('show');
+    }
+</script>
+
+<div class="row" data-ng-init="init()">
+    <div>
+        <ul class="nav navbar-nav navbar-result">
+            <li ng-click="onFlagClick()"><img ng-src="{{Verdict.Flagged == true ? './app/lib/img/flag_green.png' : './app/lib/img/flag_gray.png'}}" /></li>
+            <li><img src="./app/lib/img/left-arow.png" /></li>
+            <li data-toggle="modal" data-target="#create-project-notes"><img src="./app/lib/img/pencil_purple.png"></li>
+            <li><img src="./app/lib/img/right-arow.png" /></li>
+        </ul>
+    </div>
+    <div class="iterative-search-direction-button">
+        <span class="badge pull-right">Next&gt;</span>
+        <span class="badge pull-right" ng-click="backResult()">Back to Results</span>
+        <span class="badge pull-right">&lt;Prev</span>
+    </div>
+</div>
+<div class="divider"></div>
+<div class="iterative-result-content">
+    <p>{{Verdict.Abstract | uppercase}}</p>
+    <div ng-if="lastname"></div>
+    <p>{{jurisdiction}}</p>
+    <div compile="Verdict.Content"></div>
+</div>
+<div class="row">
+    <span class="pull-right" style="padding-right: 20px">Verdict Provided by JVRA.com</span>
+</div>
+
+
+<div class="modal fade" id="viewNote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row iterative-note-header">
+                    <div class="col-md-4">
+                        <span>Project name</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>{{Notes.NoteName}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>{{Notes.Created}}</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="iterative-note-body">
+                    <div class="row" ng-repeat="note in Notes.Contents">
+                        <div class="col-md-5">
+                            <span>{{note.Author}}</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span>{{note.Created}}</span>
+                        </div>
+                        <div class="col-md-12">
+                            <span>{{note.Content}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Note:
+                        </div>
+                        <div class="col-md-10">
+                            <textarea rows="4" class="form-control" style="resize: none" />
+                        </div>
+                    </div>
+                </div>
+                <div class="iterative-note-footer">
+                    <button type="submit" class="btn btn-default iterative-button-inactive">DELETE</button>
+                    <button type="submit" class="btn btn-default iterative-button-inactive pull-right">OK</button>
+                    <button type="submit" class="btn btn-default iterative-button pull-right" data-dismiss="modal">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="create-notes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="iterative-note-body">
+                    <div class="row iterative-note-header">
+                        <div class="col-md-4">
+                            <span>{{CurrentProject.Project}}</span>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Note:
+                        </div>
+                        <div class="col-md-10">
+                            <textarea rows="10" class="form-control" style="resize: none" ng-model="NoteContent" />
+                        </div>
+                    </div>
+                </div>
+                <div class="iterative-note-footer">
+                    <button type="submit" class="btn btn-default" style="opacity: 0">DELETE</button>
+                    <button type="submit" class="btn btn-default iterative-button pull-right" data-dismiss="modal" ng-click="SaveNote()">OK</button>
+                    <button type="submit" class="btn btn-default iterative-button pull-right" data-dismiss="modal">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="create-project-notes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="iterative-note-body">
+                    <div class="row iterative-note-header">
+                        <div class="col-md-4">
+                            <span>{{CurrentProject.Project}}</span>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Note:
+                        </div>
+                        <div class="col-md-10">
+                            <textarea rows="10" class="form-control" style="resize: none" ng-model="NoteContentVerdict" />
+                        </div>
+                    </div>
+                </div>
+                <div class="iterative-note-footer">
+                    <button type="submit" class="btn btn-default" style="opacity: 0">DELETE</button>
+                    <button type="submit" class="btn btn-default iterative-button pull-right" data-dismiss="modal" ng-click="SaveNoteFromModal()">OK</button>
+                    <button type="submit" class="btn btn-default iterative-button pull-right" data-dismiss="modal">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

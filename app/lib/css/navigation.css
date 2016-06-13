@@ -1,0 +1,23 @@
+.iterativeSearch-nav {
+    margin-bottom: 0px;
+    border-bottom: 3px solid #DADADA;
+}
+
+.iterativeSearch-nav-items>li>a {
+    color: #696969;
+    padding-bottom: 24px;
+    padding-top: 24px;
+}
+.iterativeSearch-nav-items>li>a:hover {
+    background-color: #ffffff;
+}
+.iterativeSearch-nav-items>li>a.active {
+    color: #4F771A;
+    background-color: #D1EAB0;
+}
+.iterativeSearch-nav-profile>li>a{
+    color: #696969;
+}
+.iterativeSearch-nav-profile>li>a:hover {
+    background-color: #ffffff;
+}

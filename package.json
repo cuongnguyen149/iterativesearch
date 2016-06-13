@@ -1,16 +1,15 @@
 {
-	"name": "NodejsStarterApp",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"express": "4.13.x",
-		"cfenv": "1.0.x"
-	},
-	"repository": {},
-	"engines": {
-		"node": "4.x"
-	} 
+  "name": "interative-search",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Interative Search project",
+  "license": "CSC",
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.3",
+    "restler": "^3.3.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1"
+  }
 }

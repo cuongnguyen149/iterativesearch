@@ -1,0 +1,135 @@
+<style>
+    .map-col {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .map {
+        cursor: pointer;
+        align-self: center;
+    }
+    
+    .map-malpractice,
+    .mal-braindamage {
+        margin: auto;
+        align-self: center;
+    }
+    
+    .center {
+        position: absolute;
+    }
+    
+    .absolute-position {
+        position: absolute;
+        cursor: pointer;
+    }
+</style>
+
+
+<div class="input-group iterative-search-form">
+    <input type="text" ng-model="searchVer.text" class="form-control" placeholder="Search..." ng-keypress="enterPressed($event)">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default" aria-label="Help" ng-click="search()"><img src="./app/lib/img/magnify-glass.png" class="pull-right"></button>
+    </div>
+</div>
+<div class="row row-eq-height iterativesearch-panel">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label>Verdict Amount</label>
+            <br>
+            <div style="padding: 15px; background: #fff; border-radius: 10px;">
+                <div ng-model="sliderVerdict" slider-verdict>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Recency</label>
+            <br>
+            <div class="slider-recency" style="padding: 15px; background: #fff; border-radius: 10px;">
+                <div ng-model="sliderRecency" slider-recency>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jurisdiction</label>
+                <select class="form-control" ng-model="searchVer.jurisdiction">
+                    <option value="All" selected>All</option>
+                    <option ng-repeat="item in Select" value="{{item}}">{{item}}</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-7 map-col" style="height: 248;">
+
+        <div class="map" ng-show="Status == 'NoSearch'">
+            <img ng-src="{{NoSearch}}" ng-mouseover="NoSearchHover()" ng-mouseleave="NoSearchUnhover()">
+        </div>
+        <div class="map map-malpractice" ng-show="Status == 'Malpractice'"  style="margin-right: 120px;">
+            <img style="margin-left: 125px;" src="./app/lib/img/MapImages/BigCircle.png">
+            <img style="margin-left: 109px;margin-top: -230px;" class="absolute-position" ng-src="{{Death}}" ng-mouseover="MalDeathHover()" ng-mouseleave="MalDeathUnhover()">
+            <img style="margin-left: 200px;margin-top: -178px;" class="absolute-position" ng-src="{{MalPracticeCenter}}" ng-mouseover="MalPracticeCenterHover()" ng-mouseleave="MalPracticeCenterUnhover()">
+            <img style="margin-left: 329px;margin-top: -174px;" class="absolute-position" ng-src="{{Injury}}" ng-mouseover="MalInjuryHover()" ng-mouseleave="MalInhuryUnhover()">
+            <img style="margin-left: 28px;margin-top: -119px;" class="absolute-position" ng-src="{{BrainDamage}}" ng-mouseover="MalBrainDamageHover()" ng-mouseleave="MalBrainDamageUnhover()" ng-click="BrainDamageClick(); onClickFilter = FilterResult">
+        </div>
+        <div class="map map-malpractice" ng-show="Status == 'CreateNewProject'" style="margin-right: 120px;">
+            <img style="margin-left: 125px;" src="./app/lib/img/MapImages/BigCircle.png">
+            <img style="margin-left: 109px;margin-top: -230px;" class="absolute-position" ng-src="{{Damages}}" ng-mouseover="DamagesHover()" ng-mouseleave="DamagesUnhover()">
+            <img style="margin-left: 200px;margin-top: -178px;" class="absolute-position" ng-src="{{PatentInfringementCenter}}" ng-mouseover="PatentInfringementCenterHover()" ng-mouseleave="PatentInfringementCenterUnhover()">
+            <img style="margin-left: 329px;margin-top: -174px;" class="absolute-position" ng-src="{{Agreement}}" ng-mouseover="AgreementHover()" ng-mouseleave="AgreementUnhover()">
+            <img style="margin-left: 28px;margin-top: -119px;" class="absolute-position" ng-src="{{Invalid}}" ng-mouseover="InvalidHover()" ng-mouseleave="InvalidUnhover()" ng-click="BrainDamageClick()">
+        </div>
+        <div class="map mal-braindamage" ng-show="Status == 'BrainDamage'">
+            <img style="margin-left: 125px;" src="./app/lib/img/MapImages/BrainDamageBigCircle.png">
+            <img style="margin-left: -50px;margin-top: -248px;" class="absolute-position" ng-src="{{LeftMalPractice}}" ng-mouseover="LeftMalPracticeHover()" ng-mouseleave="LeftMalPracticeUnhover()" ng-click="LeftMalPracticeClick(); onClickFilter = FilterResult">
+            <img style="margin-left: 195px;margin-top: -172px;" class="absolute-position" ng-src="{{CenterBrainDamage}}" ng-mouseover="CenterBrainDamageHover()" ng-mouseleave="CenterBrainDamageUnhover(); onClickFilter = FilterResult">
+            <img style="margin-left: 114px;margin-top: -244px;" class="absolute-position" ng-src="{{Child}}" ng-mouseover="ChildHover()" ng-mouseleave="ChildUnhover()">
+            <img style="margin-top: -235px;margin-left: 310px;" class="absolute-position" ng-src="{{Fetal}}" ng-mouseover="FetalHover()" ng-mouseleave="FetalUnhover()" ng-click="FetalClick()">
+            <img style="margin-top: -102px;margin-left: 320px;" class="absolute-position" ng-src="{{Adult}}" ng-mouseover="AdultHover()" ng-mouseleave="AdultUnhover()">
+        </div>
+
+        <div class="map mal-fetal" ng-show="Status == 'Fetal'">
+            <img style="margin-left: -235px;margin-top: -124px;" class="absolute-position" ng-src="{{LeftBrainDamage}}" ng-mouseover="LeftBrainDamageHover()" ng-mouseleave="LeftBrainDamageUnhover()" ng-click="LeftBrainDamageClick(); onClickFilter = FilterResult">
+            <img style="margin-top: -124px;" class="absolute-position" ng-src="{{CenterFetal}}" ng-mouseover="CenterFetalHover()" ng-mouseleave="CenterFetalUnhover()">
+        </div>
+    </div>
+</div>
+<div>
+    <table class="table iterativesearch-searchresult-table">
+        <thead>
+            <tr>
+                <th ng-class="{selected: sortSearch == 'Flagged'}" ng-click="sortSearch = 'Flagged'; sortSearchReverse = !sortSearchReverse">
+                    <img src="./app/lib/img/flag_gray.png" />
+                </th>
+                <th ng-class="{selected: sortSearch == 'Notes'}" ng-click="sortSearch = 'Notes'; sortSearchReverse = !sortSearchReverse">
+                    <img src="./app/lib/img/pencil_gray.png" class="head-icon" />
+                </th>
+                <th ng-class="{selected: sortSearch == 'Result'}" ng-click="sortSearch = 'Result'; sortSearchReverse = !sortSearchReverse">
+                    Search Results
+                    <span ng-class="sortSearchReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                </th>
+                <th ng-class="{selected: sortSearch == 'Viewed'}" ng-click="sortSearch = 'Viewed'; sortSearchReverse = !sortSearchReverse">
+                    Viewed
+                    <span ng-class="sortSearchReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in SearchResults | orderBy:sortSearch:sortSearchReverse | filter: onClickFilter">
+                <td ng-click="onFlagClick(item)">
+                    <img ng-show="item.Flagged" ng-src="{{item.Flagged ? './app/lib/img/flag_green.png' : ''}}">
+                </td>
+                <td><span class="badge notes" ng-show="item.Notes.length > 0">{{item.Notes.length}}</span></td>
+                <td ng-click="onProjectClick(item)">
+                    <div>
+                        <div>
+                            <span ng-if="item.Amount > 0" class="iterative-verdict-amount">Verdict {{item.Amount | currency}}</span>
+                            <span ng-if="item.Amount == 0" class="iterative-verdict-amount">Verdict for the Defense</span>
+                        </div>
+                        <div>{{item.Abstract}}</div>
+                    </div>
+                </td>
+                <td>{{item.LastOpened}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+.myprojects {
+    font-size: 12px;
+}
+
+.create-new {
+    background-color: #662D91;
+    font-size: 9pt;
+    cursor: pointer;
+}
+
+.iterative-search-form {
+    padding-bottom: 10px;
+}
+
+.iterative-search-form>input {
+    border-radius: 0px;
+    border-right: 0px;
+    box-shadow: none;
+}
+
+.iterative-search-form>div>button {
+    border-radius: 0px;
+    border-left: 0px;
+    color: #47A323;
+}
+
+.iterative-search-form>div>button:hover {
+    background: #FFF;
+    border-color: #DADADA;
+    color: #47A323;
+}
+
+.iterative-search-form>div>button:focus {
+    background: #FFF;
+    border-color: #DADADA;
+    color: #47A323;
+}
+.selected-project{
+    font-weight: bold;
+}
+
+.note-display {
+  display: block;
+  width:100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

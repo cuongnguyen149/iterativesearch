@@ -1,0 +1,45 @@
+<div class="container search-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group iterative-search-form">
+                <input type="text" ng-model="searchpage.textBoxSearchTerm" class="form-control" placeholder="Search...">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" aria-label="Help" ng-click="searchClick()"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right">
+        <input type="checkbox" ng-model="searchpage.checkStatus"> <span>Include Archived</span>
+    </div>
+    <div class="search-table">
+        <table class="table iterativesearch-search-table">
+            <thead>
+                <tr>
+                    <th ng-class="{selected: sortProjects == 'Project'}" ng-click="sortProjects = 'Project'; sortProjectReverse = !sortProjectReverse">
+                        Project
+                        <span ng-class="sortProjectReverse ? 'glyphicon glyphicon-triangle-top' : 'glyphicon glyphicon-triangle-bottom'" class="pull-right"></span>
+                    </th>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Content
+                    </th>
+                    <th>
+                        Viewed
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="verdict in Verdicts | orderBy:sortProjects:sortProjectReverse" ng-click="setProjectClick(verdict)" class="{{selected}}">
+                    <td>{{verdict.DisplayName}}</td>
+                    <td>Verdict</td>
+                    <td>{{verdict.Abstract}}</td>
+                    <td>{{verdict.LastOpened}}</td>                    
+                    <!-- {{verdict.archived}} {{verdict.Flagged}}-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

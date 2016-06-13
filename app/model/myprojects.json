@@ -1,0 +1,227 @@
+{
+    "MyProjects": [
+        {
+        "ID": 1,
+        "Project": "Babbag-23432",
+        "Contents": "Content for Babbag-23432",
+        "LastOpened": "Today"
+    }, {
+        "ID": 2,
+        "Project": "Adams-12345",
+        "Contents": "Content for Adams-12345",
+        "LastOpened": "5/21/16"
+    }, {
+        "ID": 3,
+        "Project": "Carson-33444",
+        "Contents": "Content for Carson-33444",
+        "LastOpened": "Monday"
+    }, {
+        "ID": 4,
+        "Project": "Hilton-98765",
+        "Contents": "Content for Hilton-98765",
+        "LastOpened": "6/1/16"
+    }, {
+        "ID": 5,
+        "Project": "Master-98760",
+        "Contents": "Content for Master-98760",
+        "LastOpened": "4/29/16"
+    }],
+    "Search": [
+        {
+        "Flagged": true,
+        "Notes": 3,
+        "verdict_id": 1,
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": false,
+        "Notes": 0,
+        "verdict_id": 2,
+        "Viewed": "8 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 2,
+        "verdict_id": 3,
+        "Viewed": "5/18/16"
+    }, {
+        "Flagged": false,
+        "Notes": 1,
+        "verdict_id": 4,
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 0,
+        "verdict_id": 5,
+        "Viewed": "4/15/16"
+    }, {
+        "Flagged": true,
+        "Notes": 3,
+        "Contents": "$700,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Hospital Negligence – Excessive administration of medication to decedent with medication sensitivity – Anoxic Encephalopathy – Wrongful death.",
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": false,
+        "Notes": 0,
+        "Contents": "$750,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Ob/Gyn – Failure to perform timely Cesarean Section – Negligent laceration of infant's scalp during delivery – Facial scarring – Facial palsy.",
+        "Viewed": "8 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 2,
+        "Contents": "DEFENDANT'S VERDICT  Medical Malpractice – Cardiology – Plaintiff contends defendants failed to diagnose cardiac risk of gallbladder surgery patient resulting in death of plaintiff's decedent.",
+        "Viewed": "5/18/16"
+    }, {
+        "Flagged": false,
+        "Notes": 1,
+        "Contents": "$625,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Nursing Home Negligence – Defendant's staff fractures the decedent's legs while trying to restrain him to insert a catheter – Fractured femur.",
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 0,
+        "Contents": "$925,000 RECOVERY – MEDICAL MALPRACTICE – ANESTHESIOLOGY – NEGLIGENT SUPERVISION OF THIRD YEAR RESIDENT – FEDERAL TORT CLAIM ACT – IMPROPER PLACEMENT OF LOCAL ANESTHETIC CAUSES PLAINTIFF'S EYEBALL TO EXPLODE – PERMANENT BLINDNESS  – LOSS OF EYE.",
+        "Viewed": "4/15/16"
+    }, {
+        "Flagged": true,
+        "Notes": 3,
+        "Contents": "$700,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Hospital Negligence – Excessive administration of medication to decedent with medication sensitivity – Anoxic Encephalopathy – Wrongful death.",
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": false,
+        "Notes": 0,
+        "Contents": "$750,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Ob/Gyn – Failure to perform timely Cesarean Section – Negligent laceration of infant's scalp during delivery – Facial scarring – Facial palsy.",
+        "Viewed": "8 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 2,
+        "Contents": "DEFENDANT'S VERDICT  Medical Malpractice – Cardiology – Plaintiff contends defendants failed to diagnose cardiac risk of gallbladder surgery patient resulting in death of plaintiff's decedent.",
+        "Viewed": "5/18/16"
+    }, {
+        "Flagged": false,
+        "Notes": 1,
+        "Contents": "$625,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Nursing Home Negligence – Defendant's staff fractures the decedent's legs while trying to restrain him to insert a catheter – Fractured femur.",
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 0,
+        "Contents": "$925,000 RECOVERY – MEDICAL MALPRACTICE – ANESTHESIOLOGY – NEGLIGENT SUPERVISION OF THIRD YEAR RESIDENT – FEDERAL TORT CLAIM ACT – IMPROPER PLACEMENT OF LOCAL ANESTHETIC CAUSES PLAINTIFF'S EYEBALL TO EXPLODE – PERMANENT BLINDNESS  – LOSS OF EYE.",
+        "Viewed": "4/15/16"
+    }, {
+        "Flagged": true,
+        "Notes": 3,
+        "Contents": "$700,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Hospital Negligence – Excessive administration of medication to decedent with medication sensitivity – Anoxic Encephalopathy – Wrongful death.",
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": false,
+        "Notes": 0,
+        "Contents": "$750,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Ob/Gyn – Failure to perform timely Cesarean Section – Negligent laceration of infant's scalp during delivery – Facial scarring – Facial palsy.",
+        "Viewed": "8 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 2,
+        "Contents": "DEFENDANT'S VERDICT  Medical Malpractice – Cardiology – Plaintiff contends defendants failed to diagnose cardiac risk of gallbladder surgery patient resulting in death of plaintiff's decedent.",
+        "Viewed": "5/18/16"
+    }, {
+        "Flagged": false,
+        "Notes": 1,
+        "Contents": "$625,000 CONFIDENTIAL RECOVERY   Medical Malpractice – Nursing Home Negligence – Defendant's staff fractures the decedent's legs while trying to restrain him to insert a catheter – Fractured femur.",
+        "Viewed": "23 mins ago"
+    }, {
+        "Flagged": true,
+        "Notes": 0,
+        "Contents": "$925,000 RECOVERY – MEDICAL MALPRACTICE – ANESTHESIOLOGY – NEGLIGENT SUPERVISION OF THIRD YEAR RESIDENT – FEDERAL TORT CLAIM ACT – IMPROPER PLACEMENT OF LOCAL ANESTHETIC CAUSES PLAINTIFF'S EYEBALL TO EXPLODE – PERMANENT BLINDNESS  – LOSS OF EYE.",
+        "Viewed": "4/15/16"
+    }],
+    "Notes": [
+        {
+        "ID": 1,
+        "ProjectID": 1,
+        "NoteName": "Quick Note",
+        "LastOpened": "5/15/1984",
+        "Created": "5/15/1984",
+        "Author": "Tony Brown",
+        "Contents": "This day was like no other day in the Healthcare Segment."
+    }, {
+        "ID": 2,
+        "ProjectID": 2,
+        "NoteName": "Quick Note",
+        "LastOpened": "5/15/1984",
+        "Created": "5/15/1984",
+        "Author": "Tony Brown",
+        "Contents": "This day was like no other day in the Healthcare Segment."
+    }, {
+        "ID": 3,
+        "ProjectID": 1,
+        "NoteName": "Note1",
+        "LastOpened": "Today",
+        "Created": "Today",
+        "Author": "Cuong Nguyen",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "ID": 4,
+        "ProjectID": 2,
+        "NoteName": "Note2",
+        "LastOpened": "5/25/2016",
+        "Created": "5/25/2016",
+        "Author": "Vuong Nguyen",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "ID": 5,
+        "ProjectID": 1,
+        "NoteName": "Note3",
+        "LastOpened": "5/24/16",
+        "Created": "5/24/16",
+        "Author": "Tony Brown",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "ID": 6,
+        "ProjectID": 1,
+        "NoteName": "Note4",
+        "LastOpened": "Today",
+        "Created": "Today",
+        "Author": "Paul Bryzek",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "ID": 7,
+        "ProjectID": 5,
+        "NoteName": "Note5",
+        "LastOpened": "Today",
+        "Created": "Today",
+        "Author": "Kelly Hendrix",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "ID": 8,
+        "ProjectID": 1,
+        "NoteName": "Note6",
+        "LastOpened": "5/20/16",
+        "Created": "5/20/16",
+        "Author": "Tony Brown",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "ID": 9,
+        "ProjectID": 3,
+        "NoteName": "Note7",
+        "LastOpened": "6/1",
+        "Created": "4/18/16",
+        "Author": "Vuong Nguyen",
+        "Contents": "This seems to be the same type of case as the Carson case. We should research this more."
+    }, {
+        "ID": 10,
+        "ProjectID": 3,
+        "NoteName": "Note8",
+        "LastOpened": "6/3",
+        "Created": "Today",
+        "Author": "Cuong Nguyen",
+        "Contents": "The intern was the on…"
+    }, {
+        "ID": 12,
+        "ProjectID": 1,
+        "NoteName": "Note10",
+        "LastOpened": "5/24/16",
+        "Created": "5/24/16",
+        "Author": "Cuong Nguyen",
+        "Contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }, {
+        "NoteName": "NoteTitle",
+        "LastOpened": "6/5/2016",
+        "ProjectID": 4,
+        "Author": "Jane Smith",
+        "Contents": "testing this out."
+    }]
+}

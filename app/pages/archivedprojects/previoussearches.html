@@ -1,0 +1,86 @@
+<div>
+    <table class="table iterativesearch-searchterm-table">
+        <thead>
+            <tr>
+                <th class="selected">
+                    Search Term
+                    <span class="glyphicon glyphicon-triangle-bottom pull-right"></span>
+                </th>
+                <th>
+                    Viewed
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in SearchTerm">
+                <td>{{item.SearchTerm}}</td>
+                <td>{{item.Viewed}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row iterativesearch-panel">
+     <div class="col-md-5">
+        <div class="form-group">
+            <label>Verdict Amount</label>
+            <br>
+            <div style="padding: 15px; background: #fff; border-radius: 10px;">
+                <div ng-model="sliderVerdict" slider-verdict>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Recency</label>
+            <br>
+            <div  class="slider-recency" style="padding: 15px; background: #fff; border-radius: 10px;">
+                <div ng-model="sliderRecency" slider-recency>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jurisdiction</label>
+                <select class="form-control" ng-model="searchVer.jurisdiction">
+                    <option value="All" selected>All</option>
+                    <option ng-repeat="item in Select" value="{{item}}">{{item}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <img src="./app/lib/img/temp_map_pic.png" class="img-responsive">
+    </div>
+</div>
+<div>
+    <table class="table iterativesearch-searchresult-table">
+        <thead>
+            <tr>
+                <th>
+                   <img  src="./app/lib/img/flag_gray.png" class="head-icon">
+                </th>
+                <th>
+                   <img  src="./app/lib/img/pencil_gray.png" class="head-icon">
+                </th>
+                <th class="selected">
+                    Search Results
+                    <span class="glyphicon glyphicon-triangle-bottom pull-right"></span>
+                </th>
+                <th>
+                    Viewed
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</td>
+                <td>22 mins ago</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</td>
+                <td>22 mins ago</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,90 @@
+<div>
+    <table class="table iterativesearch-searchterm-table">
+        <thead>
+            <tr>
+                <th class="selected">
+                    Search Term
+                    <span class="glyphicon glyphicon-triangle-bottom pull-right"></span>
+                </th>
+                <th>
+                    Viewed
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-click="prevSearchClick(item)" ng-repeat="item in Searches">
+                <td>{{item.SearchStr}}</td>
+                <td>{{item.Created}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row iterativesearch-panel">
+     <div class="col-md-5">
+        <div class="form-group">
+            <label>Verdict Amount</label>
+            <br>
+            <div style="padding: 15px; background: #fff; border-radius: 10px;">
+                <div ng-model="sliderVerdict" slider-verdict>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Recency</label>
+            <br>
+            <div class="slider-recency" style="padding: 15px; background: #fff; border-radius: 10px;">
+                <div ng-model="sliderRecency" slider-recency>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jurisdiction</label>
+                <select class="form-control" ng-model="searchVer.jurisdiction">
+                    <option value="All" selected>All</option>
+                    <option ng-repeat="item in Select" value="{{item}}">{{item}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <img src="./app/lib/img/temp_map_pic.png" class="img-responsive">
+    </div>
+</div>
+<div>
+    <table class="table iterativesearch-searchresult-table">
+        <thead>
+            <tr>
+                <th>
+                    <img  src="./app/lib/img/flag_gray.png" class="head-icon">
+                </th>
+                <th>
+                    <img  src="./app/lib/img/pencil_gray.png" class="head-icon">
+                </th>
+                <th class="selected">
+                    Search Results
+                    <span class="glyphicon glyphicon-triangle-bottom pull-right"></span>
+                </th>
+                <th>
+                    Viewed
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in SearchResults | orderBy:sortSearch:sortSearchReverse">
+                <td>
+                    <img ng-show="item.Flagged" ng-src="./app/lib/img/flag_green.png">
+                </td>
+                <td><span class="badge notes" ng-show="item.Notes.length > 0">{{item.Notes.length}}</span></td>
+                <td ng-click="onVerdictClick(item)">
+                    <div>
+                        <div>
+                            <span ng-if="item.Amount > 0" class="iterative-verdict-amount">Verdict {{item.Amount | currency}}</span>
+                            <span ng-if="item.Amount == 0" class="iterative-verdict-amount">Verdict for the Defense</span>
+                        </div>
+                        <div>{{item.Abstract}}</div>
+                    </div>
+                </td>
+                <td>{{item.LastOpened}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,125 @@
+<div class="row archiveprojects">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <p>ARCHIVED PROJECTS
+                    </p>
+                </div>
+                <table class="table iterativesearch-table">
+                    <thead>
+                        <tr>
+                            <th ng-class="{selected: sortProjects == 'Project'}" ng-click="sortProjects = 'Project'; sortProjectReverse = !sortProjectReverse">
+                                Project
+                                <span ng-class="sortProjectReverse ? 'glyphicon glyphicon-triangle-top' : 'glyphicon glyphicon-triangle-bottom'" class="pull-right"></span>
+                            </th>
+                            <th ng-class="{selected: sortProjects == 'LastOpened'}" ng-click="sortProjects = 'LastOpened'; sortProjectReverse = !sortProjectReverse">
+                                Last Opened
+                                <span ng-class="sortProjectReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="project in ArchivedProjects | orderBy:sortProjects:sortProjectReverse" ng-click="setProjectClick()" class="{{selected}}" ng-init="$first && setProjectClick()">
+                            <td>{{project.Project}}</td>
+                            <td>{{project.LastOpened}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <p>MY NOTES
+                    </p>
+                    <p>
+                        <span class="selected-project">{{lastSelectedProject.Project}}</span>
+                        <img src="./app/lib/img/pencil_purple.png" class="pull-right">
+                    </p>
+                </div>
+
+                <div class="input-group iterative-search-form">
+                    <input type="text" class="form-control" placeholder="Find a Note..." ng-model="searchNote">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" aria-label="Help"><img src="./app/lib/img/magnify-glass.png" class="pull-right" /></button>
+                    </div>
+                </div>
+
+                <table class="table iterativesearch-table">
+                    <thead>
+                        <tr>
+                            <th ng-class="{selected: sortNotes == 'Note'}" ng-click="sortNotes = 'Note'; sortNoteReverse = !sortNoteReverse">
+                                Note
+                                <span ng-class="sortNoteReverse ? 'glyphicon glyphicon-triangle-top' : 'glyphicon glyphicon-triangle-bottom'" class="pull-right"></span>
+                            </th>
+                            <th ng-class="{selected: sortNotes == 'LastOpened'}" ng-click="sortNotes = 'LastOpened'; sortNoteReverse = !sortNoteReverse">
+                                Last Opened
+                                <span ng-class="sortNoteReverse ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class="pull-right"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="note in Notes | orderBy:sortNotes:sortNoteReverse | filter:searchNote">
+                            <td>{{note.Note}}</td>
+                            <td>{{note.LastOpened}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div>
+            <h3>{{lastSelectedProject.Project}}</h3>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="nav iterativesearch-nav-tabs">
+                        <li ui-sref-active="active"><a ui-sref=".previousSearches">Previous Searches</a></li>
+                        <li ui-sref-active="active"><a ui-sref=".flaggedPages">Flagged Pages</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default iterative-button pull-right" type="submit">REACTIVATE PROJECT</button>
+                    <button class="btn btn-default iterative-button pull-right" type="submit" data-toggle="modal" data-target="#exportModal">EXPORT PROJECT</button>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="gradient"></div>
+                <div ui-view class="tab-main-content"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="height : 480px">
+            <div class="modal-body">
+                <h3><b>{{lastSelectedProject.Project}}</b></h3>
+                <hr>
+                <div class="form-group">
+                    <p class="col-sm-2 ">Email to:</p>
+                    <div class="col-sm-10" style="margin-bottom: 20px">
+                        <textarea rows="2" class="form-control" ng-trim="false" ng-model="emailModel" required highlight-on-error/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="col-sm-2 ">Note:</p>
+                    <div class="col-sm-10" style="margin-bottom: 20px">
+                        <textarea rows="10" class="form-control" ng-trim="false" ng-model="noteModel" required highlight-on-error/>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-default iterative-button pull-right" data-dismiss="modal" ng-disabled="!emailModel">EXPORT</button>
+                    <button class="btn btn-default iterative-button pull-right" type="button" data-dismiss="modal">CANCEL</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

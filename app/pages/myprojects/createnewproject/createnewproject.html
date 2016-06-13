@@ -1,0 +1,53 @@
+<div class="row create-project-form">
+    <div class="col-md-2 create-project-header">
+        <h4>Project name:</h4>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group create-project-input">
+            <input type="text" ng-model="searchVer.projectName" class="form-control" placeholder="Enter Project Name...">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-default iterative-button pull-right" type="submit">IMPORT</button>
+    </div>
+</div>
+<div class="create-new-project">
+    <div class="input-group iterative-search-form">
+        <input type="text" ng-model="searchVer.text" class="form-control" placeholder="Search..." ng-keypress="enterPressed($event)">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default" aria-label="Help" ng-click="search()"><img src="./app/lib/img/magnify-glass.png" class="pull-right"></button>
+        </div>
+    </div>
+    <div class="row iterativesearch-panel">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label>Verdict Amount</label>
+                <br>
+                <div style="padding: 15px; background: #fff; border-radius: 10px;">
+                    <div ng-model="sliderVerdict" slider-verdict>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Recency</label>
+                <br>
+                <div  class="slider-recency" style="padding: 15px; background: #fff; border-radius: 10px;">
+                    <div ng-model="sliderRecency" slider-recency>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Jurisdiction</label>
+                    <select class="form-control" ng-model="searchVer.jurisdiction">
+                        <option value="All" selected>All</option>
+                        <option ng-repeat="item in Select" value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 map-col" style="height: 248;">
+            <div class="map" ng-show="Status == 'NoSearch'">
+                <img ng-src="{{NoSearch}}" ng-mouseover="NoSearchHover()" ng-mouseleave="NoSearchUnhover()" style="position: absolute; bottom: -185px; right: 120px;">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+{
+    "ArchivedVerdicts":[
+        {
+            "Abstract":"ARCHIVED ! $700,000 CONFIDENTIAL RECOVERY   Medical Malpractice \u2013 Hospital Negligence \u2013 Excessive administration of medication to decedent with medication sensitivity \u2013 Anoxic Encephalopathy \u2013 Wrongful death.",
+            "Amount":700000,
+            "Flagged":true,
+            "Content":"ARCHIVED !In this medical malpractice matter, the plaintiff alleged that the defendant physician and the defendant hospital were negligent in administering excessive medication to a woman who exhibited symptoms of sensitivity to pain medication. The woman suffered brain damage and died. The defendants denied the allegations of negligence and maintained they did nothing inappropriate.<br /><br />The 78-year-old female decedent was admitted to the defendant hospital for back pain. She came under the care of the defendant physician. The decedent was required to undergo an MRI for her back. The defendant physician administered an increased dose of pain medication and prescribed anti-anxiety medication for the decedent prior to the MRI despite being aware that the plaintiff's decedent had sensitivity to narcotic pain medication. During the MRI, the decedent stopped breathing and exhibited no pulse. She was resuscitated, but suffered from brain damage and died two days later. <br /><br />The plaintiff brought suit against the defendant doctor and the defendant hospital alleging negligence in administering an excessive dosage of pain medication and anti-anxiety medication to the decedent despite having knowledge of her sensitivity and intolerance to the medication prescribed. The defendants denied the allegations of negligence and maintained that there was no deviation from acceptable standards of care. The defendants contended that the administration of the medication was proper under the circumstances and necessary for the procedure.The parties agreed to a confidential settlement of $700,000 for the plaintiff's claims prior to the trial in this matter.",
+            "State":"MA",
+            "Notes":[
+                {
+                    "ProjectID":1,
+                    "Created":"15/05/84 08:30",
+                    "NoteName":"Quick Note",
+                    "Contents":"This day was like no other day in the Healthcare Segment.",
+                    "Author":"Tony Brown"
+                },
+                {
+                    "ProjectID":2,
+                    "Created":"15/05/84 08:30",
+                    "NoteName":"Quick Note",
+                    "Contents":"This day was like no other day in the Healthcare Segment.",
+                    "Author":"Tony Brown"
+                }
+            ],
+            "Date":"02/12/2012",
+            "id":1
+        },
+        {
+            "Abstract":"ARCHIVED !$750,000 CONFIDENTIAL RECOVERY   Medical Malpractice \u2013 Ob/Gyn \u2013 Failure to perform timely Cesarean Section \u2013 Negligent laceration of infant's scalp during delivery \u2013 Facial scarring \u2013 Facial palsy.",
+            "Amount":750000,
+            "Flagged":true,
+            "Content":"ARCHIVED !In this medical malpractice matter, the plaintiff alleged that the defendant obstetrician was negligent in permitting the mother to proceed with labor when it was apparent she was suffering from secondary arrest of descent. The infant suffered a fetal scalp laceration during the delivery, resulting in facial scarring. The child also suffers from facial palsy. The defendant denied the deviation from acceptable standards of care.<br /><br />The infant's mother presented for labor induction. The mother's cervix was not completely dilated at the time that the defendant took a fetal scalp blood sample. The mother was diagnosed with arrest dilation; however, the plaintiff alleged that the defendant failed to initiate a Cesarean Section until more than six hours later. <br /><br />The plaintiff alleged that the defendant's decision to permit the mother to continue laboring while the child's presenting parts were pressed against the non-dilated cervix for over six hours was negligent. The infant was born with facial palsy and left nostril laceration. The child, who is now ten years old, has permanent facial scarring and will require future surgery.<br /><br />The plaintiff brought suit against the defendant alleging negligence in failing to abide by the applicable standard of care when the mother was diagnosed with secondary arrest of descent and permitting the mother to continue to labor and in lacerating the child's nostril. The defendant denied the allegations and maintained that there was no deviation from acceptable standards of care.The parties agreed to a confidential settlement of $750,000 for the child's injuries.",
+            "State":"MA",
+            "Notes":[
+                {
+                    "ProjectID":1,
+                    "Created":"15/05/84 08:30",
+                    "NoteName":"Quick Note",
+                    "Contents":"This day was like no other day in the Healthcare Segment.",
+                    "Author":"Tony Brown"
+                },
+                {
+                     "ProjectID":2,
+                    "Created":"15/05/84 08:30",
+                    "NoteName":"Quick Note",
+                    "Contents":"This day was like no other day in the Healthcare Segment.",
+                    "Author":"Tony Brown"
+                }
+            ],
+            "Date":"02/12/2012",
+            "id":2
+        }
+    ]
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iterative Search</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="app/lib/js/jquery-2.2.4.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- End Bootstrap -->
+    
+    <!--Slider lib -->
+    <script src="app/lib/js/jquery-ui.min.js"></script>
+    <script src="app/lib/js/jquery-ui-slider-pips.js"></script>
+    <link href="app/lib/js/jqueryui.min.css" rel="stylesheet" type="text/css">
+    <link href="app/lib/js/jquery-ui-slider-pips.css" rel="stylesheet" type="text/css">
+    <!--End slider lib -->
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="app/lib/css/style.css">
+    <link rel="stylesheet" href="app/lib/css/navigation.css">
+    <link rel="stylesheet" href="app/lib/css/myprojects.css">
+    <link rel="stylesheet" href="app/lib/css/searchprojects.css">
+    <link rel="stylesheet" href="app/lib/css/login.css">
+    <link rel="stylesheet" href="app/lib/css/flagged.css">
+    <!-- End Custom CSS -->
+
+    <!-- Angular -->
+    <script src="app/lib/js/angular.min.js"></script>
+    <script src="app/lib/js/angular-ui-router.min.js"></script>
+    <script src="app/lib/js/angular.sanitize.min.js"></script>
+    <!-- End Angular -->
+
+    <script src="app/app.js"></script>
+    <script src="app/pages/login/login.js"></script>
+    <script src="app/pages/main/main.js"></script>
+    <script src="app/pages/myprojects/myprojects.js"></script>
+    <script src="app/pages/myprojects/search.js"></script>
+    <script src="app/pages/myprojects/previoussearches.js"></script>
+    <script src="app/pages/myprojects/flaggedpages.js"></script>
+    <script src="app/pages/myprojects/verdicts.js"></script>
+    <script src="app/pages/myprojects/createnewproject/createnewproject.js"></script>
+    <script src="app/pages/archivedprojects/archivedprojects.js"></script>
+    <script src="app/pages/archivedprojects/previoussearches.js"></script>
+    <script src="app/pages/archivedprojects/flaggedpages.js"></script>
+    <script src="app/pages/searchprojects/searchprojects.js"></script>
+    <script src="app/pages/searchnotes/searchnotes.js"></script>
+    
+    <!-- Services -->
+    <script src="app/service/myprojectsService.js"></script>
+    <script src="app/service/loginService.js"></script>
+    <script src="app/service/archivedprojectsService.js"></script>
+    <script src="app/service/archivedVerdictsService.js"></script>
+    <script src="app/service/verdictsService.js"></script>
+    <script src="app/service/transferDataService.js"></script>
+    <script src="app/service/searchService.js"></script>
+    <script src="app/service/statesService.js"></script>
+    <script src="app/service/prevSearchesService.js"></script>
+    <!-- End Services -->
+
+</head>
+
+<body ng-app="iterativeSearch">
+    <div ui-view></div>
+</body>
+
+</html>
