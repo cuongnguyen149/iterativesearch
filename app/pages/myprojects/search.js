@@ -28,6 +28,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
         });
 
         var search = function () {
+            console.log('search');
             //change the map
             if ($rootScope.MapStatus) {
                 $scope.Status = $rootScope.MapStatus;
@@ -72,7 +73,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
                 var searches = data.Searches;
                 var countSearchStr = 0;
                 for (var i = 0; i < searches.length; i++) {
-                    if (searchStr.indexOf((searches[i].SearchStr.toLowerCase()))) {
+                    if (searchStr == searches[i].SearchStr.toLowerCase()) {
                         countSearchStr++;
                     }
                 }
@@ -103,6 +104,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
 
                             var matches = SearchService.searchVerdicts(verdicts, searchStr, false);
                             $scope.SearchResults = matches;
+                            console.log(matches);
                         });
                     }
                 }

@@ -72,7 +72,18 @@ app.controller('CreateNewProjectCtrl', ["$rootScope", "$scope", "$state", "Trans
         searchObj["ProjectId"] = parseInt($window.sessionStorage.ProjectIdForCreateNewProject);
         searchObj["Created"] = nowDateStr;
 
-        PrevSearchesService.writeSearchObj(searchObj);
+        PrevSearchesService.getSearches().then(function (data) {
+            var searches = data.Searches;
+            var countSearchStr = 0;
+            for (var i = 0; i < searches.length; i++) {
+                if (searchStr == searches[i].SearchStr.toLowerCase()) {
+                    countSearchStr++;
+                }
+            }
+            if (countSearchStr == 0) {
+                PrevSearchesService.writeSearchObj(searchObj);
+            }
+        });
     }
 
     StatesService.getStates().then(function (data) {

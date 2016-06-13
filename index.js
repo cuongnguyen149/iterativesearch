@@ -124,7 +124,6 @@ function repairData(){
         var content = JSON.parse(file);
         for (var i = 0; i < content.Verdicts.length; i++) {
             content.Verdicts[i].Notes = [];
-            content.Verdicts[i].Date = "";
             content.Verdicts[i].Flagged = false;
         }
         var stringContent = JSON.stringify(content);
