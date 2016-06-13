@@ -7,6 +7,8 @@ var app = express();
 var path = require('path');
 var serverPort = 8000;
 var fs = require('fs');
+var cfenv = require('cfenv');
+
 app.use(express.static(__dirname));
 app.use(bodyParser.json({
     limit: '50mb'
@@ -146,6 +148,14 @@ app.post('/writenewproject', function (req, res) {
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + 'index.html'));
 });
-app.listen(serverPort, function () {
-    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+var appEnv = cfenv.getAppEnv();
+
+// start server on the specified port and binding host
+app.listen(appEnv.port, '0.0.0.0', function() {
+  // print a message when the server starts listening
+  console.log("server starting on " + appEnv.url);
 });
+
+// app.listen(serverPort, function () {
+//     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+// });
