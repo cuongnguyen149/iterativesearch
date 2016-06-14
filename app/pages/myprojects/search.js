@@ -7,7 +7,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
         $scope.sortSearch = 'Result';
         $scope.sortSearchReverse = false;
         $scope.SearchStrs = {};
-
+        $scope.StateObjects = [];
         $scope.search = function () {
             search();
         }
@@ -214,6 +214,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
             $scope.searchVer.text = "";
         }
 
+        
         $scope.enterPressed = function (keyEvent) {
             if (keyEvent.which === 13) {
                 search();
