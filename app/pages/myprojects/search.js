@@ -7,7 +7,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
         $scope.sortSearch = 'Result';
         $scope.sortSearchReverse = false;
         $scope.SearchStrs = {};
-        $scope.StateObjects = [];
+        
         $scope.search = function () {
             search();
         }
@@ -93,7 +93,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
                     $scope.SearchResults = matches;
                 });
             } else {
-                var states = $scope.StateObjects;
+                var states = $rootScope.StateObjects;
                 for (var i = 0; i < states.length; i++) {
                     var state = states[i];
                     var stateFull = state["State"];
@@ -195,7 +195,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
         $scope.onProjectClick = function (verdict) {
             var verdictState = verdict.State;
 
-            var states = $scope.StateObjects;
+            var states = $rootScope.StateObjects;
             for (var i = 0; i < states.length; i++) {
                 var state = states[i];
                 var stateFull = state["State"];
@@ -223,7 +223,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
 
         StatesService.getStates().then(function (data) {
             var states = data.States;
-            $scope.StateObjects = states;
+            $rootScope.StateObjects = states;
             var stateFullNames = [];
             for (var i = 0; i < states.length; i++) {
                 var state = states[i];
