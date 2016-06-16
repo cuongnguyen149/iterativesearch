@@ -114,7 +114,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in SearchResults | orderBy:sortSearch:sortSearchReverse | filter: onClickFilter">
+            <tr ng-repeat="item in SearchResults | orderBy:sortSearch:sortSearchReverse | filter: onClickFilter" ng-init="onClickFilter">
                 <td ng-click="onFlagClick(item)">
                     <img ng-show="item.Flagged" ng-src="{{item.Flagged ? './app/lib/img/flag_green.png' : ''}}">
                 </td>

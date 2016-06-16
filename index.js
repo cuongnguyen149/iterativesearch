@@ -7,8 +7,6 @@ var app = express();
 var path = require('path');
 var serverPort = 8000;
 var fs = require('fs');
-var cfenv = require('cfenv');
-
 app.use(express.static(__dirname));
 app.use(bodyParser.json({
     limit: '50mb'
@@ -60,17 +58,24 @@ function writeViewedVerdict(data) {
 }
 
 function writeFlaggedVerdict(data) {
-    var path = './app/model/verdicts.json';
+    var path = './app/model/flaggedVerdicts.json';
     var file = fs.readFileSync(path);
     var content = JSON.parse(file);
-    for (var i = 0; i < content.Verdicts.length; i++) {
-        var verdict = content.Verdicts[i];
-        if (verdict.id == data.id) {
-            verdict.Flagged = data.Flagged;
-            verdict.SearchTerms = data.SearchTerms;
+
+    //If the flagged verdict exists, overwrite it, else add it fresh.
+    var matched = false;
+    for (var i = 0; i < content.FlaggedVerdicts.length; i++) {
+        var flaggedVerdict = content.FlaggedVerdicts[i];
+        if (flaggedVerdict.VerdictId == data.VerdictId && flaggedVerdict.ProjectId == data.ProjectId) {
+            content.FlaggedVerdicts[i] = data;
+            matched = true;
             break;
         }
     }
+    if(!matched) {
+        content.FlaggedVerdicts.push(data);
+    }
+
     var stringContent = JSON.stringify(content);
     fs.writeFileSync(path, stringContent);
 }
@@ -107,31 +112,34 @@ function writeProjectNote(data) {
     var stringContent = JSON.stringify(content);
     fs.writeFileSync(path, stringContent);
 }
-//careful before running this function
-function repairData(){
-    var path                = './app/model/verdicts.json',
-        myprojectsPath      = './app/model/myprojects.json',
-        myprojectsTmpPath   = './app/model/myprojectsTemplate.json',
-        prevsearchesPath    = './app/model/prevsearches.json',
-        prevsearchesTmpPath = './app/model/prevsearchesTemplate.json';
-    fs.unlink(myprojectsPath, function (err){
-      if (err) throw err;
-      fs.unlink(prevsearchesPath, function (err){
+function copyFileToFile(oldFile, newFile) {
+    fs.unlink(oldFile, function (err) {
         if (err) throw err;
-        fs.createReadStream(myprojectsTmpPath).pipe(fs.createWriteStream(myprojectsPath));
-        fs.createReadStream(prevsearchesTmpPath).pipe(fs.createWriteStream(prevsearchesPath));
-        var file = fs.readFileSync(path);
-        var content = JSON.parse(file);
-        for (var i = 0; i < content.Verdicts.length; i++) {
-            content.Verdicts[i].Notes = [];
-            content.Verdicts[i].Flagged = false;
-        }
-        var stringContent = JSON.stringify(content);
-        fs.writeFileSync(path, stringContent);
-      });    
+        fs.createReadStream(newFile).pipe(fs.createWriteStream(oldFile));
     });
 }
 
+//careful before running this function
+function repairData() {
+    var verdictsPath = './app/model/verdicts.json',
+    verdictsTmpPath = './app/model/verdictsTemplate.json',
+    myprojectsPath = './app/model/myprojects.json',
+    myprojectsTmpPath = './app/model/myprojectsTemplate.json',
+    prevsearchesPath = './app/model/prevsearches.json',
+    prevsearchesTmpPath = './app/model/prevsearchesTemplate.json',
+    flaggedVerdictsPath = './app/model/flaggedVerdicts.json',
+    flaggedVerdictsTmpPath = './app/model/flaggedVerdictsTemplate.json';
+
+    copyFileToFile(verdictsPath, verdictsTmpPath);
+    copyFileToFile(myprojectsPath, myprojectsTmpPath);
+    copyFileToFile(prevsearchesPath, prevsearchesTmpPath);
+    copyFileToFile(flaggedVerdictsPath, flaggedVerdictsTmpPath);
+}
+
+app.post('/repairData', function (req, res) {
+    repairData();
+    res.send("Success");
+});
 app.post('/writeSearchObj', function (req, res) {
     writeSearchObj(req.body);
     res.send("Success");
@@ -159,18 +167,6 @@ app.post('/writenewproject', function (req, res) {
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + 'index.html'));
 });
-app.get('/repairdata', function(req, res){
-    repairData();
-    res.send("Success");    
+app.listen(serverPort, function () {
+    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
 });
-var appEnv = cfenv.getAppEnv() || 3000;
-
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
-  // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});
-
-// app.listen(serverPort, function () {
-//     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-// });

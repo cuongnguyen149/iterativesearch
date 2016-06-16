@@ -4,7 +4,6 @@ angular.module("iterativeSearch")
             getVerdicts: getVerdicts,
             writeNoteVerdict: writeNoteVerdict,
             searchVerdicts: searchVerdicts,
-            writeFlaggedVerdict: writeFlaggedVerdict,
             writeViewedVerdict: writeViewedVerdict
         }
 
@@ -83,19 +82,6 @@ angular.module("iterativeSearch")
                 data: params
             }).success(function () {
                 console.log('writeViewedVerdict success');
-            });
-        }
-
-        function writeFlaggedVerdict(params) {
-            $http({
-                method: 'post',
-                url: 'writeFlaggedVerdict',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: params
-            }).success(function () {
-                console.log('writeFlaggedVerdict success');
             });
         }
 

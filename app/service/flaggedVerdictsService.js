@@ -1,18 +1,16 @@
-'use strict';
-
-angular.module('iterativeSearch')
-    .factory("LoginSvc", ["$http", "$q", function ($http, $q) {
+angular.module("iterativeSearch")
+    .factory("FlaggedVerdictsService", ["$http", "$q", function ($http, $q) {
         var service = {
-            getUser: getUser,
-            repairData: repairData
+            getFlaggedVerdicts: getFlaggedVerdicts,
+            writeFlaggedVerdict: writeFlaggedVerdict
         }
 
-        function getUser() {
+        function getFlaggedVerdicts() {
             var deferred = $q.defer();
 
             $http({
                     method: "get",
-                    url: "app/model/user.json"
+                    url: "app/model/flaggedVerdicts.json"
                 })
                 .success(function (data) {
                     deferred.resolve(data);
@@ -24,17 +22,18 @@ angular.module('iterativeSearch')
             return deferred.promise;
         }
 
-        function repairData() {
+        function writeFlaggedVerdict(params) {
             $http({
                 method: 'post',
-                url: 'repairData',
+                url: 'writeFlaggedVerdict',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                data: params
             }).success(function () {
-                console.log('repairdata success');
+                console.log('writeFlaggedVerdict success');
             });
         }
 
         return service;
- 	}]);
+}]);

@@ -2,7 +2,7 @@ var app = angular.module('iterativeSearch');
 
 app.controller('PreviousSearchesCtrl', ["$rootScope", "$scope", "$state", "SearchService", "VerdictsService", "PrevSearchesService", "StatesService", 
     function ($rootScope, $scope, $state, SearchService, VerdictsService, PrevSearchesService, StatesService) {
-    
+
     $scope.$state = $state;
     $scope.recency = [0, 20];
     $scope.verdictAmount = [0, 60000000];
@@ -17,6 +17,10 @@ app.controller('PreviousSearchesCtrl', ["$rootScope", "$scope", "$state", "Searc
         }
 
         $scope.Select = stateFullNames;
+    });
+
+    $rootScope.$on('projectChange', function (event, args) {
+        $scope.getPrevSearches();    
     });
 
     $scope.onVerdictClick = function (verdict) {
@@ -84,20 +88,24 @@ app.controller('PreviousSearchesCtrl', ["$rootScope", "$scope", "$state", "Searc
         }
     }
 
-    $scope.Searches = [];
+    $scope.getPrevSearches = function (searchObj) {
+        $scope.Searches = [];
 
-    PrevSearchesService.getSearches().then(function (data) {
-        var curProjId = $rootScope.lastSelectedProject.ID;
+        PrevSearchesService.getSearches().then(function (data) {
+            var curProjId = $rootScope.lastSelectedProject.ID;
 
-        var searches = data.Searches;
-        for (var i = 0; i < searches.length; i++){
-            var search = searches[i];
-            
-            if(curProjId == search.ProjectId) {
-                $scope.Searches.push(search);
+            var searches = data.Searches;
+            for (var i = 0; i < searches.length; i++){
+                var search = searches[i];
+                
+                if(curProjId == search.ProjectId) {
+                    $scope.Searches.push(search);
+                }
             }
-        }
-    });
+        });
+    }
+
+    $scope.getPrevSearches();
 }]);
 
 

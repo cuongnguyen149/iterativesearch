@@ -1,6 +1,7 @@
 var app = angular.module('iterativeSearch');
 
 app.controller('MyProjectsCtrl', ["$rootScope", "$scope", "$state", "MyProjectsService", "TransferDataService", "$window", "$stateParams", function ($rootScope, $scope, $state, MyProjectsService, TransferDataService, $window, $stateParams) {
+
     $scope.$state = $state;
 
     $scope.sortProjects = 'Project';
@@ -11,7 +12,7 @@ app.controller('MyProjectsCtrl', ["$rootScope", "$scope", "$state", "MyProjectsS
 
     $scope.searchNote = '';
 
-    $rootScope.lastSelectedProject = {};
+    //$rootScope.lastSelectedProject = {};
 
     $scope.createNewProject = function () {
         $state.go("main.myprojects.createnewproject");
@@ -51,11 +52,19 @@ app.controller('MyProjectsCtrl', ["$rootScope", "$scope", "$state", "MyProjectsS
     }
 
     $scope.setProjectClick = function () {
+        
+        var isSameProject = false;
+        if($rootScope.lastSelectedProject != null) {
+            isSameProject = (this.project.ID == $rootScope.lastSelectedProject.ID);
+        } 
+
         if ($scope.lastSelected) {
             $scope.lastSelected.selected = '';
         }
+        
         this.selected = 'selected';
         $scope.lastSelected = this;
+
         $rootScope.lastSelectedProject = this.project;
         TransferDataService.set("CurrentProject", this.project);
 
@@ -66,7 +75,9 @@ app.controller('MyProjectsCtrl', ["$rootScope", "$scope", "$state", "MyProjectsS
 
         $scope.Project = this.project;
 
-        $scope.resetPage();
+        if(!isSameProject){
+            $scope.resetPage();
+        }
 
         MyProjectsService.getMyProjects().then(function (data) {
 

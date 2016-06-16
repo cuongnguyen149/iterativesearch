@@ -27,15 +27,12 @@ app.controller('CreateNewProjectCtrl', ["$rootScope", "$scope", "$state", "Trans
 		    if(search(SearchResults)){
 
 		    };
-	    	// if(matches){
-	    	// }
-    	}else{
+    	} else {
     		$window.alert('Please enter the project name!');
     	}
     }
     var createNewProject = function () {
         var nowDate = new Date();
-        // var timeStamp = nowDate.getTime(); 
 
         var curr_date = nowDate.getDate();
         var curr_month = nowDate.getMonth() + 1;
@@ -43,47 +40,17 @@ app.controller('CreateNewProjectCtrl', ["$rootScope", "$scope", "$state", "Trans
 
         var nowDateStr = curr_month + "/" + curr_date + "/" + curr_year;
         var projectName = $scope.searchVer.projectName;
+        var newProjectId = new Date().getTime();
 
     	var newProject = {}; 
-        newProject["ID"] =  parseInt($window.sessionStorage.ProjectIdForCreateNewProject);
+        newProject["ID"] =  newProjectId
         newProject["Project"] = projectName;
         newProject["Contents"] = "";
         newProject["LastOpened"] = nowDateStr;
         newProject["Created"] = nowDateStr;
 
         MyProjectsService.writeNewProject(newProject);
-
-        var stateSelected = $scope.searchVer.jurisdiction;
-        var searchStr = $scope.searchVer.text.toLowerCase();
-        var recency_1 = $scope.searchVer.recency_1;
-
-        var amount_1 = $scope.searchVer.amount_1;
-        var amount_2 = $scope.searchVer.amount_2;
-
-        var searchObjTimestamp = new Date().getTime(); 
-
-        var searchObj = {};
-        searchObj["id"] = searchObjTimestamp;
-        searchObj["Amount_1"] = amount_1;
-        searchObj["Amount_2"] = amount_2;
-        searchObj["SearchStr"] = searchStr;
-        searchObj["Recency_1"] = recency_1;
-        searchObj["Jurisdiction"] = stateSelected;
-        searchObj["ProjectId"] = parseInt($window.sessionStorage.ProjectIdForCreateNewProject);
-        searchObj["Created"] = nowDateStr;
-
-        PrevSearchesService.getSearches().then(function (data) {
-            var searches = data.Searches;
-            var countSearchStr = 0;
-            for (var i = 0; i < searches.length; i++) {
-                if (searchStr == searches[i].SearchStr.toLowerCase()) {
-                    countSearchStr++;
-                }
-            }
-            if (countSearchStr == 0) {
-                PrevSearchesService.writeSearchObj(searchObj);
-            }
-        });
+        $rootScope.lastSelectedProject = newProject;
     }
 
     StatesService.getStates().then(function (data) {
@@ -128,9 +95,10 @@ app.controller('CreateNewProjectCtrl', ["$rootScope", "$scope", "$state", "Trans
     var SearchResults = function(result){
     	if(result){
     		createNewProject();
-    		$state.go("main.myprojects.search", {newProjectParam : {SearchVerdicts : $scope.searchVer, SearchResults: result}}, {reload: true});    	
+    		$state.go("main.myprojects.search", {newProjectParam : {SearchVerdicts : $scope.searchVer}}, {reload: true});    	
     	}
     };
+
     //MAP 
     $scope.Status = "NoSearch";
     $scope.NoSearch = "./app/lib/img/MapImages/NoSearch.png";       

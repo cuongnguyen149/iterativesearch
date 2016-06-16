@@ -49,7 +49,6 @@ app.controller('SearchProjectsCtrl', ["$scope", "$state", "VerdictsService", "Ar
                 }
                 match["DisplayName"] = displayName;
                 $scope.Verdicts.push(match);
-                
             }    
         }
     }

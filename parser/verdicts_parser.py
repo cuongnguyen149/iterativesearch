@@ -6,6 +6,7 @@ import openpyxl as px
 
 INPUT_FILE = "./verdicts.xlsx"
 OUTPUT_FILE = "./verdicts.json"
+OUTPUT_TEMPLATE_FILE = "./verdictsTemplate.json"
 
 YEAR_INDEX = 0
 MONTH_INDEX = 1
@@ -31,7 +32,6 @@ LAST_OPENED_JSON = "LastOpened"
 STATE_JSON = "State"
 ABSTRACT_JSON = "Abstract"
 AMOUNT_JSON = "Amount"
-FLAGGED_JSON = "Flagged"
 NOTES_JSON = "Notes"
 AUTHOR_JSON = "Author"
 CONTENT_JSON = "Content"
@@ -40,7 +40,6 @@ SUBJECT_JSON = "Subject"
 AUTHOR_JSON = "Author"
 NOTENAME_JSON = "NoteName"
 CREATED_JSON = "Created"
-SEARCH_TERMS_JSON = "SearchTerms"
 
 verdicts = []
 
@@ -111,7 +110,6 @@ for row in p.iter_rows():
             #2014-03-12T13:37:27+00:00
             #date = str(year) + "-" + str(month) + "-" + default_day + "T00:00:00+00:00"
 
-            flagged_default_value = False
             verdict[ID_JSON] = id
             verdict[LAST_OPENED_JSON] = "";
             verdict[DATE_JSON] = date
@@ -119,9 +117,7 @@ for row in p.iter_rows():
             verdict[ABSTRACT_JSON] = abstract
             verdict[AMOUNT_JSON] = amount
             verdict[CONTENT_JSON] = content
-            verdict[FLAGGED_JSON] = flagged_default_value
             verdict[NOTES_JSON] = notes
-            verdict[SEARCH_TERMS_JSON] = []
 
             verdicts.append(verdict)
 
@@ -142,4 +138,7 @@ verdict_obj[VERDICTS_JSON] = verdicts
 verdict_obj_str = json.dumps(verdict_obj)
 
 with open(OUTPUT_FILE, 'w') as fh_w:
+    fh_w.write(verdict_obj_str)
+
+with open(OUTPUT_TEMPLATE_FILE, 'w') as fh_w:
     fh_w.write(verdict_obj_str)

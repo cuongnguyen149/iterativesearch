@@ -1,6 +1,7 @@
 var app = angular.module('iterativeSearch');
 
-app.controller('VerdictsCtrl', ["$rootScope", "$scope", "$state", "$compile", "VerdictsService", "TransferDataService", "MyProjectsService", function ($rootScope, $scope, $state, $compile, VerdictsService, TransferDataService, MyProjectsService) {
+app.controller('VerdictsCtrl', ["$rootScope", "$scope", "$state", "$compile", "FlaggedVerdictsService", "VerdictsService", "TransferDataService", "MyProjectsService", 
+    function ($rootScope, $scope, $state, $compile, FlaggedVerdictsService, VerdictsService, TransferDataService, MyProjectsService) {
     $scope.$state = $state;
     $scope.CurrentProject = TransferDataService.get("CurrentProject");
     
@@ -137,7 +138,9 @@ app.controller('VerdictsCtrl', ["$rootScope", "$scope", "$state", "$compile", "V
         var originalSearchStr = $rootScope.searchObj.SearchStr; 
 
         var verdict = $scope.Verdict;
-        verdict.Flagged = !verdict.Flagged;
+        var newFlagValue = !verdict.Flagged;
+        verdict.Flagged = newFlagValue;
+
         var searchTerms = verdict.SearchTerms;
         var match = false;
         for (var i = 0; i < searchTerms.length; i++) {
@@ -148,10 +151,16 @@ app.controller('VerdictsCtrl', ["$rootScope", "$scope", "$state", "$compile", "V
         }
         if (!match) {
             searchTerms.push(originalSearchStr);
-            verdict.SearchTerms = searchTerms;
+            $scope.Verdict.SearchTerms = searchTerms;
         }
 
-        VerdictsService.writeFlaggedVerdict(verdict);
+        var flaggedVerdict = {};
+        flaggedVerdict["VerdictId"] = verdict.id;
+        flaggedVerdict["Flagged"] = newFlagValue;
+        flaggedVerdict["SearchTerms"] = searchTerms;
+        flaggedVerdict["ProjectId"] = $rootScope.lastSelectedProject.ID;
+
+        FlaggedVerdictsService.writeFlaggedVerdict(flaggedVerdict);
     }
 
 }]);

@@ -118,33 +118,56 @@ angular.module("iterativeSearch")
 		    },
 
 		    searchNoteObj: function(verdict, searchStr, results, searchArchived, note, projects){
+		    	var tokens = this.tokenizeStr(searchStr);
+		    	var numTokens = tokens.length;
+		    	if(numTokens == 0) {
+		    		return results;
+		    	}
+
 		    	var author = note[self.AUTHOR_JSON];
 		    	var createdAt = note[self.CREATED_JSON];
 		    	var contents = note[self.CONTENTS_JSON];
 		    	var noteName = note[self.NOTENAME_JSON];
 
-		    	//Search the noteName
-				var noteNameTokens = this.tokenizeStr(noteName);
-	            var match = this.isStrInTokens(searchStr, noteNameTokens);
-				if(match) {
-				 	return this.createNoteResultsObj(note, verdict, searchArchived, projects, results);
-				}
+		    	var noteNameTokens = this.tokenizeStr(noteName);
+		    	var authorTokens = this.tokenizeStr(author);
+		    	var contentsTokens = this.tokenizeStr(contents);
+		    	
+		    	var numMatches = 0;
 
-				var authorTokens = this.tokenizeStr(author);
-	            var match = this.isStrInTokens(searchStr, authorTokens);
-				if(match) {
-				  	return this.createNoteResultsObj(note, verdict, searchArchived, projects, results);
-				}
+		    	//Need to ensure all the tokens are present.
+		        for (var tokenIndex = 0; tokenIndex < numTokens; tokenIndex++){
+		            var token = tokens[tokenIndex];
+		        
+			    	//Search the noteName
+					
+		            var match = this.isStrInTokens(token, noteNameTokens);
+					if(match) {
+						numMatches++;
+						continue;
+					}
 
-				var contentsTokens = this.tokenizeStr(contents);
-	            var match = this.isStrInTokens(searchStr, contentsTokens);
-				if(match) {
-				  	return this.createNoteResultsObj(note, verdict, searchArchived, projects, results);
+		            var match = this.isStrInTokens(token, authorTokens);
+					if(match) {
+						numMatches++;
+						continue;
+					}
+
+		            var match = this.isStrInTokens(token, contentsTokens);
+					if(match) {
+						numMatches++;
+						continue;
+					}
 				}
+				
+				if(numMatches == numTokens) {
+					return this.createNoteResultsObj(note, verdict, searchArchived, projects, results);
+				}
+				
 				return results;
 		    },
 
-		    searchVerdictObjNotes: function(verdict, searchStr, results, searchArchived){
+		    searchVerdictObjNotes: function(verdict, searchStr, results, searchArchived) {
 		    	var notes = verdict[self.NOTES_JSON];
 		    	if(!notes) {
 		    		return false;
@@ -159,25 +182,39 @@ angular.module("iterativeSearch")
 			    return results;
 		    },
 
-		    searchVerdictObj: function(verdict, searchStr, token){
+		    searchVerdictObj: function(verdict, searchStr){
+		    	var tokens = this.tokenizeStr(searchStr);
+		    	var numTokens = tokens.length;
+		    	if(numTokens == 0) {
+		    		return false;
+		    	}
+
  		    	var abstract = verdict[self.ABSTRACT_JSON];
 				var content = verdict[self.CONTENT_JSON];
 
-				//Search the Abstract
 				var abstractTokens = this.tokenizeStr(abstract);
-                var match = this.isStrInTokens(searchStr, abstractTokens);
-			    if(match) {
-			    	return true;
-			    }
-			          
-			    //Then search the Content  
-			    var contentTokens = this.tokenizeStr(content);
-			    var match = this.isStrInTokens(searchStr, contentTokens);
-			    if(match) {
-			    	return true;
-			    }	
+				var contentTokens = this.tokenizeStr(content);
 
-			    return false;
+				var numMatches = 0;
+
+				//Need to ensure all the tokens are present.
+		        for (var tokenIndex = 0; tokenIndex < numTokens; tokenIndex++){
+		            var token = tokens[tokenIndex];
+				
+	                var match = this.isStrInTokens(token, abstractTokens);
+				    if(match) {
+						numMatches++;
+						continue;
+					}  
+				    
+				    var match = this.isStrInTokens(token, contentTokens);
+				    if(match) {
+						numMatches++;
+						continue;
+					}	
+				}
+
+				return (numMatches == numTokens);
 		    },
 
 		    findProjectFromNote: function(projects, myProjectNote) {
@@ -198,56 +235,44 @@ angular.module("iterativeSearch")
 		    searchMyProjectsNotes: function(myProjects, myProjectsNotes, searchStr, searchArchived) {
 		    	var results = [];
 
-		    	var tokens = this.tokenizeStr(searchStr);
-		    	//Search through every token
-		        for (var tokenIndex = 0; tokenIndex < tokens.length; tokenIndex++){
-		            var token = tokens[tokenIndex];
-
-		            //And every note
-		            for (var i = 0; i < myProjectsNotes.length; i++){
-		            	var myProjectNote = myProjectsNotes[i];
-		            	results = this.searchNoteObj(false, searchStr, results, searchArchived, myProjectNote, myProjects);
-		            }
-		        }	 
+	            //And every note
+	            for (var i = 0; i < myProjectsNotes.length; i++){
+	            	var myProjectNote = myProjectsNotes[i];
+	            	results = this.searchNoteObj(false, searchStr, results, searchArchived, myProjectNote, myProjects);
+	            }
+		        	 
 		        return results; 
 		    },    
 
 		    doSearchVerdicts: function(verdicts, searchStr, results, searchArchived, searchType) {
-		        var tokens = this.tokenizeStr(searchStr);
-
 		        var idsAdded = {};
-		        //Search through every token
-		        for (var tokenIndex = 0; tokenIndex < tokens.length; tokenIndex++){
-		            var token = tokens[tokenIndex];
 		        
-		            //And every verdict
-		            for (var i = 0; i < verdicts.length; i++){
-		                
-		                var verdict = verdicts[i];
-		                var verdictId = String(verdict.id);
-		                //If we already added this verdict from previous token just skip it
-		                if(idsAdded[verdictId]) {
-		                	continue;
-		                }
+	            for (var i = 0; i < verdicts.length; i++){
+	                
+	                var verdict = verdicts[i];
+	                var verdictId = String(verdict.id);
+	                //If we already added this verdict from previous token just skip it
+	                if(idsAdded[verdictId]) {
+	                	continue;
+	                }
 
-		                if(searchType == self.SEARCH_TYPE_NOTES) {
-		                	var resultsSizeBefore = results.length;
-		                	results = this.searchVerdictObjNotes(verdict, token, results, searchArchived);
-		                	var resultsSizeAfter = results.length;  
-		                	if(resultsSizeBefore != resultsSizeAfter) {
-		                		idsAdded[verdictId] = true;
-		                	}            	
-		                } else if(searchType == self.SEARCH_TYPE_VERDICTS) {
-		                	var match = this.searchVerdictObj(verdict, token, results);
-		                	if(match) {
-				    			var result = this.createResultObj(verdict, searchArchived);
-				        		results.push(result);
-				        		idsAdded[verdictId] = true;
-				        		continue;
-				    		}	
-		                } 	                	                
-		            }
-		        }
+	                if(searchType == self.SEARCH_TYPE_NOTES) {
+	                	var resultsSizeBefore = results.length;
+	                	results = this.searchVerdictObjNotes(verdict, searchStr, results, searchArchived);
+	                	var resultsSizeAfter = results.length;  
+	                	if(resultsSizeBefore != resultsSizeAfter) {
+	                		idsAdded[verdictId] = true;
+	                	}            	
+	                } else if(searchType == self.SEARCH_TYPE_VERDICTS) {
+	                	var match = this.searchVerdictObj(verdict, searchStr);
+	                	if(match) {
+			    			var result = this.createResultObj(verdict, searchArchived);
+			        		results.push(result);
+			        		idsAdded[verdictId] = true;
+			        		continue;
+			    		}	
+	                } 	                	                
+	            }
 
 		        return results;
 		    },

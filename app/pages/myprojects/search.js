@@ -1,13 +1,28 @@
 var app = angular.module('iterativeSearch');
 
-app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "PrevSearchesService", "SearchService", "StatesService", "MyProjectsService", "VerdictsService", "TransferDataService", "$stateParams",
-    function ($rootScope, $scope, $state, $filter, PrevSearchesService, SearchService, StatesService, MyProjectsService, VerdictsService, TransferDataService, $stateParams) {
+app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "FlaggedVerdictsService", "PrevSearchesService", "SearchService", "StatesService", "MyProjectsService", "VerdictsService", "TransferDataService", "$stateParams",
+    function ($rootScope, $scope, $state, $filter, FlaggedVerdictsService, PrevSearchesService, SearchService, StatesService, MyProjectsService, VerdictsService, TransferDataService, $stateParams) {
 
         $scope.$state = $state;
         $scope.sortSearch = 'Result';
         $scope.sortSearchReverse = false;
-        $scope.SearchStrs = {};
-        
+
+        PrevSearchesService.getSearches().then(function (data) {
+
+            $rootScope.SearchStrs = {};
+            var curProjId = $rootScope.lastSelectedProject.ID;
+
+            var searches = data.Searches;
+            for (var i = 0; i < searches.length; i++) {
+                var search = searches[i];
+
+                if (curProjId == search.ProjectId) {
+                    var searchString = search.SearchStr;
+                    $rootScope.SearchStrs[searchString] = true;
+                }
+            }
+        });
+
         $scope.search = function () {
             search();
         }
@@ -25,10 +40,50 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
                     recency_1: $scope.recency[0]
                 }
             }
+
+            $rootScope.searchObj = null;
         });
 
+        var setInitialFlagsOnVerdicts = function (verdicts) {
+
+            FlaggedVerdictsService.getFlaggedVerdicts().then(function (flaggedVerdictsData) {
+                var flaggedVerdicts = flaggedVerdictsData.FlaggedVerdicts;
+
+                var curProjId = $rootScope.lastSelectedProject.ID;
+
+                var searchResults = [];
+                for (var i = 0; i < verdicts.length; i++){
+                    var verdict = verdicts[i];
+                    var verdictId = verdict.id;
+                    
+                    var matched = false;
+                    for (var j = 0; j < flaggedVerdicts.length; j++){
+                        var flaggedVerdict = flaggedVerdicts[j];
+                        var flaggedVerdictId = flaggedVerdict.VerdictId;
+                        var flaggedVerdictProjId = flaggedVerdict.ProjectId;
+                        if(verdictId == flaggedVerdictId && curProjId == flaggedVerdictProjId) {
+                            matched = true;
+
+                            verdict.Flagged = flaggedVerdict.Flagged;
+                            verdict.SearchTerms = flaggedVerdict.SearchTerms;
+                            break;
+                        }
+                    }
+
+                    if(!matched){
+                        verdict.Flagged = false;
+                        verdict.SearchTerms = [];
+                    }
+
+                    searchResults.push(verdict);
+                }
+
+                $scope.SearchResults = searchResults;
+            });
+        }
+
         var search = function () {
-            console.log('search');
+
             //change the map
             if ($rootScope.MapStatus) {
                 $scope.Status = $rootScope.MapStatus;
@@ -63,34 +118,18 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
             searchObj["ProjectId"] = $rootScope.lastSelectedProject.ID;
             searchObj["Created"] = nowDateStr;
 
-            // if (!$scope.SearchStrs[searchStr]) {
-            //     PrevSearchesService.writeSearchObj(searchObj);
-            //     $scope.SearchStrs[searchStr] = true;
-            // }
-
-            //Just have 1 search term for all project.
-            PrevSearchesService.getSearches().then(function (data) {
-                var searches = data.Searches;
-                var countSearchStr = 0;
-                for (var i = 0; i < searches.length; i++) {
-                    if (searchStr == searches[i].SearchStr.toLowerCase()) {
-                        countSearchStr++;
-                    }
-                }
-                if (countSearchStr == 0) {
-                    PrevSearchesService.writeSearchObj(searchObj);
-                }
-            });
+            if (!$rootScope.SearchStrs[searchStr]) {
+                PrevSearchesService.writeSearchObj(searchObj);
+                $rootScope.SearchStrs[searchStr] = true;
+            }
 
             //Save the searchobj for when user returns to this page.
             $rootScope.searchObj = searchObj;
-
+            
             if (stateSelected == "All") {
-                VerdictsService.searchVerdicts($scope.searchVer, "All").then(function (data) {
-                    var verdicts = data;
-
+                VerdictsService.searchVerdicts($scope.searchVer, "All").then(function (verdicts) {
                     var matches = SearchService.searchVerdicts(verdicts, searchStr, false);
-                    $scope.SearchResults = matches;
+                    setInitialFlagsOnVerdicts(matches);
                 });
             } else {
                 var states = $rootScope.StateObjects;
@@ -99,13 +138,11 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
                     var stateFull = state["State"];
                     var stateShort = state["Abbrev"];
                     if (stateFull == stateSelected) {
-                        VerdictsService.searchVerdicts($scope.searchVer, stateShort).then(function (data) {
-                            var verdicts = data;
-
+                        VerdictsService.searchVerdicts($scope.searchVer, stateShort).then(function (verdicts) {
                             var matches = SearchService.searchVerdicts(verdicts, searchStr, false);
-                            $scope.SearchResults = matches;
-                            console.log(matches);
+                            setInitialFlagsOnVerdicts(matches);
                         });
+                        break;
                     }
                 }
             }
@@ -123,7 +160,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
                 amount_2: $scope.verdictAmount[$scope.verdictAmount.length - 1],
                 recency_1: $scope.recency[0]
             }
-            $scope.SearchResults = $stateParams.newProjectParam.SearchResults;
+            $scope.search();
         } else if ($rootScope.searchObj != null && $stateParams.newProjectParam == null) {
             //We need to repopulate the search page as we came back to it and have a saved search.
             $scope.recency = [parseFloat($rootScope.searchObj["Recency_1"]), 20];
@@ -149,27 +186,15 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
             }
         }
 
-        PrevSearchesService.getSearches().then(function (data) {
-            var curProjId = $rootScope.lastSelectedProject.ID;
-
-            var searches = data.Searches;
-            for (var i = 0; i < searches.length; i++) {
-                var search = searches[i];
-
-                if (curProjId == search.ProjectId) {
-                    var searchString = search.SearchStr;
-                    $scope.SearchStrs[searchString] = true;
-                }
-            }
-        });
-
         $scope.onFlagClick = function (verdict) {
 
             //Update the new flag value on the front end.
+            var newFlagValue = false;
             for (var i = 0; i < $scope.SearchResults.length; i++) {
                 var scopeVerdict = $scope.SearchResults[i];
                 if (scopeVerdict.id == verdict.id) {
-                    $scope.SearchResults[i].Flagged = !$scope.SearchResults[i].Flagged;
+                    newFlagValue = !$scope.SearchResults[i].Flagged;
+                    $scope.SearchResults[i].Flagged = newFlagValue;
                     break;
                 }
             }
@@ -186,10 +211,15 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
             }
             if (!match) {
                 searchTerms.push(originalSearchStr);
-                verdict.SearchTerms = searchTerms;
             }
 
-            VerdictsService.writeFlaggedVerdict(verdict);
+            var flaggedVerdict = {};
+            flaggedVerdict["VerdictId"] = verdict.id;
+            flaggedVerdict["Flagged"] = newFlagValue;
+            flaggedVerdict["SearchTerms"] = searchTerms;
+            flaggedVerdict["ProjectId"] = $rootScope.lastSelectedProject.ID;
+
+            FlaggedVerdictsService.writeFlaggedVerdict(flaggedVerdict);
         }
 
         $scope.onProjectClick = function (verdict) {
@@ -214,7 +244,6 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Prev
             $scope.searchVer.text = "";
         }
 
-        
         $scope.enterPressed = function (keyEvent) {
             if (keyEvent.which === 13) {
                 search();
