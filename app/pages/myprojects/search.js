@@ -41,6 +41,7 @@ app.controller('SearchCtrl', ["$rootScope", "$scope", "$state", '$filter', "Flag
                 }
             }
 
+	    $scope.SearchResults = [];
             $rootScope.searchObj = null;
         });
 

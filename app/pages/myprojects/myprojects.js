@@ -12,8 +12,6 @@ app.controller('MyProjectsCtrl', ["$rootScope", "$scope", "$state", "MyProjectsS
 
     $scope.searchNote = '';
 
-    //$rootScope.lastSelectedProject = {};
-
     $scope.createNewProject = function () {
         $state.go("main.myprojects.createnewproject");
     };
